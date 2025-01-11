@@ -38,7 +38,7 @@ for (int i = 0; i < visitedCells.Length; i++)
 {
     visitedCells[i] = new int[points[0].Length];
 };
-
+var sw = Stopwatch.StartNew();
 foreach (var extraObstacle in originalPath)
 {
     guard = originalGuard;
@@ -64,6 +64,8 @@ foreach (var extraObstacle in originalPath)
     }
     points[extraObstacle.y][extraObstacle.x] = State.Free; // reset state
 }
+sw.Stop();
+System.Console.WriteLine(sw.ElapsedMilliseconds);
 Console.WriteLine(loopCount);
 
 
@@ -91,7 +93,7 @@ bool Move(bool quick)
     }
     try
     {
-        while (points[guard.y + direction.y][guard.x + direction.x] == State.Obstacle) // will throw when guard leaves map
+        while (points[guard.y + direction.y][guard.x + direction.x] == State.Obstacle)
         {
             direction = (-direction.y, direction.x); // rotate by 90deg clockwise
         }
